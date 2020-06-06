@@ -54,7 +54,7 @@ MainMenu:
         Lore:
           - "&7%level%"
           - "&7%nextlevel%"
-      Slot: 23
+      Slot: 22
 Levels:
   '1':
     ExpRequired: 1000

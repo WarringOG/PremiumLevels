@@ -9,6 +9,7 @@ import dev.warring.levels.files.DataFile;
 import dev.warring.levels.files.MessagesFile;
 import dev.warring.levels.models.Level;
 import dev.warring.levels.papi.PlaceholderAPI;
+import dev.warring.levels.utils.MessageUtils;
 import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -55,7 +56,7 @@ public class ExpLevels extends WarringPlugin {
         dumpToRAM();
 
         registerCommands(new LevelsCommand());
-
+        setNoPermission(messagesFile.getString("NO-PERMISSION"));
         if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI").isEnabled())
             new PlaceholderAPI().register();
     }
@@ -71,6 +72,7 @@ public class ExpLevels extends WarringPlugin {
     }
 
     public void dumpToFile(){
+        if (api.getMapStorage().getMap() == null) return;
         if (api.getMapStorage().getMap().isEmpty()) return;
         api.getMapStorage().getMap().forEach((uuid, inte) -> {
             dataFile.getCreator().getYmlFile().set("Data." + uuid, inte);
