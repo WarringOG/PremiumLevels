@@ -8,7 +8,9 @@ import dev.warring.levels.commands.LevelsCommand;
 import dev.warring.levels.files.DataFile;
 import dev.warring.levels.files.MessagesFile;
 import dev.warring.levels.models.Level;
+import dev.warring.levels.papi.PlaceholderAPI;
 import lombok.Getter;
+import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.security.Key;
@@ -32,6 +34,14 @@ public class ExpLevels extends WarringPlugin {
 
     @Override
     public void enable() {
+        if (!Bukkit.getPluginManager().getPlugin("PremiumCore").isEnabled()) {
+            this.getLogger().info("=====================================");
+            this.getLogger().info("PREMIUMLEVELS DEPENDS ON PREMIUMCORE");
+            this.getLogger().info("CONTACT WARRING FOR IT!");
+            this.getLogger().info("=====================================");
+            Bukkit.getPluginManager().disablePlugin(this);
+            return;
+        }
         saveDefaultConfig();
         instance = this;
 
@@ -45,6 +55,9 @@ public class ExpLevels extends WarringPlugin {
         dumpToRAM();
 
         registerCommands(new LevelsCommand());
+
+        if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI").isEnabled())
+            new PlaceholderAPI().register();
     }
 
     @Override
@@ -58,6 +71,7 @@ public class ExpLevels extends WarringPlugin {
     }
 
     public void dumpToFile(){
+        if (api.getMapStorage().getMap().isEmpty()) return;
         api.getMapStorage().getMap().forEach((uuid, inte) -> {
             dataFile.getCreator().getYmlFile().set("Data." + uuid, inte);
         });
