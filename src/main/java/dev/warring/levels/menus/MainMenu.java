@@ -5,8 +5,10 @@ import com.google.common.collect.Maps;
 import dev.warring.core.library.menus.CustomMenu;
 import dev.warring.core.library.menus.api.InventoryClickType;
 import dev.warring.core.library.menus.api.Menu;
+import dev.warring.core.library.menus.api.MenuAPI;
 import dev.warring.core.library.menus.api.MenuItem;
 import dev.warring.core.library.utils.ItemUtils;
+import dev.warring.core.library.utils.SoundUtils;
 import dev.warring.core.library.utils.Utils;
 import dev.warring.levels.ExpLevels;
 import dev.warring.levels.event.LevelUpEvent;
@@ -32,10 +34,12 @@ public class MainMenu extends CustomMenu {
                 public void onClick(Player player, InventoryClickType inventoryClickType) {
                     int current = ExpLevels.getInstance().getApi().getLevel(p);
                     if (current >= level.getLevel()) {
+                        SoundUtils.playSound(p, "Error");
                         setTemporaryIcon(ItemParse.parseItem(statusSec.getConfigurationSection("AlreadyUnlocked")), 20L);
                         return;
                     }
                     if (current + 1 != level.getLevel()) {
+                        SoundUtils.playSound(p, "Error");
                         setTemporaryIcon(ItemParse.parseItem(statusSec.getConfigurationSection("HighLevel")), 20L);
                         return;
                     }
@@ -49,6 +53,7 @@ public class MainMenu extends CustomMenu {
                             p.setTotalExperience(newExp);
                             ExpLevels.getInstance().getApi().setLevel(p, current + 1);
                             setTemporaryIcon(ItemParse.parseItem(statusSec.getConfigurationSection("PurchasedLevel")), 20L);
+                            SoundUtils.playSound(p, "PurchasedLevel");
                         }
                     } else {
                         setTemporaryIcon(ItemParse.parseItem(statusSec.getConfigurationSection("NotEnoughExp")), 20L);
@@ -68,9 +73,11 @@ public class MainMenu extends CustomMenu {
             @Override
             public void onClick(Player player, InventoryClickType inventoryClickType) {
                 if (m.getCurrentPage() == 1) {
+                    SoundUtils.playSound(p, "Error");
                     setTemporaryIcon(ItemParse.parseItem(statusSec.getConfigurationSection("InvalidPage")), 20L);
                     return;
                 }
+                SoundUtils.playSound(p, "SwitchPage");
                 m.previousPage(p);
             }
 
@@ -84,9 +91,11 @@ public class MainMenu extends CustomMenu {
             @Override
             public void onClick(Player player, InventoryClickType inventoryClickType) {
                 if (m.getCurrentPage() == m.getMaxPage()) {
+                    SoundUtils.playSound(p, "Error");
                     setTemporaryIcon(ItemParse.parseItem(statusSec.getConfigurationSection("InvalidPage")), 20L);
                     return;
                 }
+                SoundUtils.playSound(p, "SwitchPage");
                 m.nextPage(p);
             }
 
@@ -99,6 +108,14 @@ public class MainMenu extends CustomMenu {
         getInfoItems(getSec(), p).forEach((integer, menuItem) -> {
             m.addMenuItem(menuItem, integer);
         });
+
+        m.setMenuCloseBehaviour(new MenuAPI.MenuCloseBehaviour() {
+            @Override
+            public void onClose(Player player, Menu menu, boolean b) {
+                SoundUtils.playSound(p, "CloseMenu");
+            }
+        });
+
         m.openMenu(p);
     }
 

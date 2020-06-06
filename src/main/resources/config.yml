@@ -33,7 +33,10 @@ MainMenu:
     RewardLore: "&7%reward%"
     Name: "%level%"
     Lore:
-      - "&7This level is cool!"
+      - "&7%level%"
+      - "&7%expcost%"
+      - "&7%currentexp%"
+      - "&7%neededexp%"
   PreviousPage:
     Material: "PAPER;0"
     Name: "&bPrevious Page"
@@ -63,3 +66,30 @@ Levels:
       - "1x Cow Spawner"
     Commands:
       - "give %player% cow_spawner 1"
+
+Sounds:
+  OpenMenu:
+    Enabled: true
+    Name: LEVEL_UP
+    Volume: 1.0
+    Pitch: 1.0
+  CloseMenu:
+    Enabled: true
+    Name: LEVEL_UP
+    Volume: 1.0
+    Pitch: 1.0
+  Error:
+    Enabled: true
+    Name: LEVEL_UP
+    Volume: 1.0
+    Pitch: 1.0
+  PurchasedLevel:
+    Enabled: true
+    Name: LEVEL_UP
+    Volume: 1.0
+    Pitch: 1.0
+  SwitchPage:
+    Enabled: true
+    Name: LEVEL_UP
+    Volume: 1.0
+    Pitch: 1.0

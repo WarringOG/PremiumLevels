@@ -13,6 +13,7 @@ import dev.warring.levels.utils.MessageUtils;
 import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import java.security.Key;
 import java.util.UUID;
@@ -59,6 +60,8 @@ public class ExpLevels extends WarringPlugin {
         setNoPermission(messagesFile.getString("NO-PERMISSION"));
         if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI").isEnabled())
             new PlaceholderAPI().register();
+
+        startSaveTask();
     }
 
     @Override
@@ -96,6 +99,17 @@ public class ExpLevels extends WarringPlugin {
         getConfig().getConfigurationSection("Levels").getKeys(false).forEach(key -> {
             levelMapStorage.set(Integer.parseInt(key), new Level(Integer.parseInt(key)));
         });
+    }
+
+    public void startSaveTask() {
+        new BukkitRunnable() {
+            @Override
+            public void run() {
+                dumpToFile();
+
+                dumpToRAM();
+            }
+        }.runTaskTimer(this, 20 * 3600, 20 * 3600);
     }
 
     public static ExpLevels getInstance() {
