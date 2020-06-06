@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="PremiumCore">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../WarringCore/target/PremiumCore.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/../WarringCore/target/PremiumCore.jar!/" />
+    </SOURCES>
+  </library>
+</component>

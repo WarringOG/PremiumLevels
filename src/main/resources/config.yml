@@ -1,0 +1,57 @@
+MenuOptions:
+  FillerItem:
+    Material: "STAINED_GLASS_PANE;15"
+    Name: ""
+    Lore: ""
+  StatusItems:
+    InvalidPage:
+      Material: "BARRIER;0"
+      Name: "&c&lNot enough exp"
+      Lore: []
+    NotEnoughExp:
+      Material: "BARRIER;0"
+      Name: "&c&lNot enough exp"
+      Lore: []
+    HighLevel:
+      Material: "BARRIER;0"
+      Name: "&c&lToo High of a Level"
+      Lore: []
+    AlreadyUnlocked:
+      Material: "BARRIER;0"
+      Name: "&c&lAlready Unlocked"
+      Lore: []
+    PurchasedLevel:
+      Material: "EXP_BOTTLE;0"
+      Name: "&c&lPurchased Level"
+      Lore: []
+
+MainMenu:
+  Title: "&8Levels Menu"
+  Size: 27
+  Slots: [11,12,13,14,15]
+  LevelItem:
+    RewardLore: "&7%reward%"
+    Name: "%level%"
+    Lore:
+      - "&7This level is cool!"
+  PreviousPage:
+    Material: "PAPER;0"
+    Name: "&bPrevious Page"
+    Lore:
+      - "&7Previous Page"
+    Slot: 21
+  NextPage:
+    Material: "PAPER;0"
+    Name: "&bNext Page"
+    Lore:
+      - "&7Next Page"
+    Slot: 23
+
+Levels:
+  '1':
+    ExpRequired: 1000
+    Material: "EXP_BOTTLE;0"
+    Rewards:
+      - "1x Cow Spawner"
+    Commands:
+      - "give %player% cow_spawner 1"

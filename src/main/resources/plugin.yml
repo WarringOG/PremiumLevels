@@ -1,0 +1,5 @@
+name: PremiumLevels
+version: 1.0-STABLE
+main: dev.warring.levels.ExpLevels
+authors: [Warring]
+depend: [PremiumCore]
