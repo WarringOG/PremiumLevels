@@ -10,7 +10,7 @@ import org.bukkit.entity.Player;
 public class LevelsCommand extends CommandManager<CommandSender> {
 
     public LevelsCommand() {
-        super("levels", "premiumlevels.admin");
+        super("levels", "premiumlevels.use");
         addAliases("level");
         addArgs(new ReloadArg());
     }

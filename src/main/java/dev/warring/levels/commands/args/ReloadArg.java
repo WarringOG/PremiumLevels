@@ -6,7 +6,7 @@ import dev.warring.levels.ExpLevels;
 import dev.warring.levels.utils.MessageUtils;
 import org.bukkit.command.CommandSender;
 
-@CommandInfo(aliases = {"rl", "reload"}, permission = "levels.admin")
+@CommandInfo(aliases = {"rl", "reload"}, permission = "premiumlevels.admin")
 public class ReloadArg implements CommandPost<CommandSender> {
 
     @Override
