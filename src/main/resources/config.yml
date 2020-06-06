@@ -46,7 +46,15 @@ MainMenu:
     Lore:
       - "&7Next Page"
     Slot: 23
-
+  InformationItems:
+    '1':
+      Item:
+        Material: "BEACON;0"
+        Name: "&bCurrent Lel"
+        Lore:
+          - "&7%level%"
+          - "&7%nextlevel%"
+      Slot: 23
 Levels:
   '1':
     ExpRequired: 1000

@@ -1,10 +1,12 @@
 package dev.warring.levels.menus;
 
 import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 import dev.warring.core.library.menus.CustomMenu;
 import dev.warring.core.library.menus.api.InventoryClickType;
 import dev.warring.core.library.menus.api.Menu;
 import dev.warring.core.library.menus.api.MenuItem;
+import dev.warring.core.library.utils.ItemUtils;
 import dev.warring.core.library.utils.Utils;
 import dev.warring.levels.ExpLevels;
 import dev.warring.levels.event.LevelUpEvent;
@@ -14,6 +16,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.List;
+import java.util.Map;
 
 public class MainMenu extends CustomMenu {
 
@@ -93,7 +96,25 @@ public class MainMenu extends CustomMenu {
             }
         }, getSec().getInt("NextPage.Slot"));
 
+        getInfoItems(getSec(), p).forEach((integer, menuItem) -> {
+            m.addMenuItem(menuItem, integer);
+        });
         m.openMenu(p);
+    }
+
+    public Map<Integer, MenuItem> getInfoItems(ConfigurationSection sec, Player p) {
+        Map<Integer, MenuItem> menuItems = Maps.newHashMap();
+        sec.getConfigurationSection("InformationItems").getKeys(false).forEach(key -> {
+            ConfigurationSection s = sec.getConfigurationSection("InformationItems." + key);
+            menuItems.put(s.getInt("Slot"), new MenuItem.UnclickableMenuItem() {
+                @Override
+                public ItemStack getItemStack() {
+                    int level = ExpLevels.getInstance().getApi().getLevel(p);
+                    return ItemUtils.getConfigItemLegacy(s.getConfigurationSection("Item"), new String[]{"%level%", "%nextlevel%"}, new String[]{ level+ "", (level + 1) + ""});
+                }
+            });
+        });
+        return menuItems;
     }
 
 }
